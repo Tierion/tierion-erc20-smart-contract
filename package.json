@@ -2,17 +2,20 @@
   "name": "tierion-erc20-smart-contract",
   "version": "0.0.1",
   "description": "Tierion Network Token (TNT) ERC20 Ethereum Smart Contract",
-  "main": "index.js",
   "author": "Glenn Rempe <glenn@tierion.com>",
   "license": "MIT",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "compile": "truffle compile",
-    "test": "truffle test"
+    "compile": "./node_modules/.bin/truffle compile",
+    "test": "./node_modules/.bin/truffle test",
+    "migrate": "./node_modules/.bin/truffle migrate"
   },
   "dependencies": {
-    "zeppelin-solidity": "^1.2.0"
+    "zeppelin-solidity": "1.2.0"
+  },
+  "devDependencies": {
+    "truffle": "3.4.7"
   }
 }
