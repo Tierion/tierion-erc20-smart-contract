@@ -33,7 +33,7 @@ contract('TierionNetworkToken', function (accounts) {
     })
   })
 
-  it('should set totalSupply to 1e17 units', function () {
+  it('should set totalSupply to 1e17 Grains', function () {
     return TierionNetworkToken.deployed().then(function (instance) {
       return instance.totalSupply.call()
     }).then(function (supply) {
@@ -41,7 +41,7 @@ contract('TierionNetworkToken', function (accounts) {
     })
   })
 
-  it('should put 1e17 units in the first account', function () {
+  it('should put 1e17 Grains in the first account', function () {
     return TierionNetworkToken.deployed().then(function (instance) {
       return instance.balanceOf.call(accounts[0])
     }).then(function (balance) {
