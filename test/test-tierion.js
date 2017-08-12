@@ -190,4 +190,153 @@ contract('TierionNetworkToken', function (accounts) {
       meta.unpause({ from: accounts[0] })
     })
   })
+
+  it('should allow transfer() of Grains by address owner when unpaused', function () {
+    var meta
+    var xferAmt = 100000000
+    var account0StartingBalance
+    var account1StartingBalance
+    var account0EndingBalance
+    var account1EndingBalance
+
+    return TierionNetworkToken.deployed().then(function (instance) {
+      meta = instance
+      return meta.balanceOf(accounts[0])
+    }).then(function (balance) {
+      account0StartingBalance = balance.toNumber()
+      return meta.balanceOf(accounts[1])
+    }).then(function (balance) {
+      account1StartingBalance = balance.toNumber()
+      return meta.transfer(accounts[1], xferAmt, { from: accounts[0] })
+    }).then(function (result) {
+      return meta.balanceOf(accounts[0])
+    }).then(function (balance) {
+      account0EndingBalance = balance.toNumber()
+    }).then(function (result) {
+      return meta.balanceOf(accounts[1])
+    }).then(function (balance) {
+      account1EndingBalance = balance.toNumber()
+    }).then(function () {
+      assert.equal(account0EndingBalance, account0StartingBalance - xferAmt, 'Balance of account 0 incorrect')
+      assert.equal(account1EndingBalance, account1StartingBalance + xferAmt, 'Balance of account 1 incorrect')
+    })
+  })
+
+  it('should allow transferFrom(), when properly approved, when unpaused', function () {
+    var meta
+    var xferAmt = 100000000
+    var account0StartingBalance
+    var account1StartingBalance
+    var account0EndingBalance
+    var account1EndingBalance
+
+    return TierionNetworkToken.deployed().then(function (instance) {
+      meta = instance
+      return meta.balanceOf(accounts[0], { from: accounts[0] })
+    }).then(function (balance) {
+      account0StartingBalance = balance.toNumber()
+      return meta.balanceOf(accounts[1], { from: accounts[1] })
+    }).then(function (balance) {
+      account1StartingBalance = balance.toNumber()
+      // account 1 first needs approval to move Grains from account 0
+      return meta.approve(accounts[1], xferAmt, { from: accounts[0] })
+    }).then(function (balance) {
+      // with prior approval, account 1 can transfer Grains from account 0
+      return meta.transferFrom(accounts[0], accounts[1], xferAmt, { from: accounts[1] })
+    }).then(function (result) {
+      return meta.balanceOf(accounts[0], { from: accounts[0] })
+    }).then(function (balance) {
+      account0EndingBalance = balance.toNumber()
+    }).then(function (result) {
+      return meta.balanceOf(accounts[1], { from: accounts[1] })
+    }).then(function (balance) {
+      account1EndingBalance = balance.toNumber()
+    }).then(function () {
+      assert.equal(account0EndingBalance, account0StartingBalance - xferAmt, 'Balance of account 0 incorrect')
+      assert.equal(account1EndingBalance, account1StartingBalance + xferAmt, 'Balance of account 1 incorrect')
+    })
+  })
+
+  it('should allow approve(), and allowance() when unpaused', function () {
+    var meta
+    var xferAmt = 100000000
+
+    return TierionNetworkToken.deployed().then(function (instance) {
+      meta = instance
+      return meta.approve(accounts[1], xferAmt, { from: accounts[0] })
+    }).then(function (result) {
+      return meta.allowance(accounts[0], accounts[1], { from: accounts[0] })
+    }).then(function (allowance) {
+      return allowance.toNumber()
+    }).then(function (allowance) {
+      assert.equal(allowance, xferAmt, 'Allowance amount is incorrect')
+      // reset
+      meta.approve(accounts[1], 0, { from: accounts[0] })
+    })
+  })
+
+  it('should not allow approve() when paused', function () {
+    var meta
+    var xferAmt = 100000000
+
+    return TierionNetworkToken.deployed().then(function (instance) {
+      meta = instance
+      return meta.pause({ from: accounts[0] })
+    }).then(function (result) {
+      return meta.approve(accounts[1], xferAmt, { from: accounts[0] })
+    })
+    .then(assert.fail)
+    .catch(function (error) {
+      assert(
+        error.message.indexOf('invalid opcode') >= 0,
+        'accounts trying to approve() when paused should throw an invalid opcode exception.'
+      )
+      // reset
+      meta.unpause({ from: accounts[0] })
+    })
+  })
+
+  it('should not allow transfer() when paused', function () {
+    var meta
+    var xferAmt = 100000000
+
+    return TierionNetworkToken.deployed().then(function (instance) {
+      meta = instance
+      return meta.pause({ from: accounts[0] })
+    }).then(function (result) {
+      return meta.transfer(accounts[1], xferAmt, { from: accounts[0] })
+    })
+    .then(assert.fail)
+    .catch(function (error) {
+      assert(
+        error.message.indexOf('invalid opcode') >= 0,
+        'accounts trying to transfer() when paused should throw an invalid opcode exception.'
+      )
+      // reset
+      meta.unpause({ from: accounts[0] })
+    })
+  })
+
+  it('should not allow transferFrom() when paused', function () {
+    var meta
+    var xferAmt = 100000000
+
+    return TierionNetworkToken.deployed().then(function (instance) {
+      meta = instance
+      return meta.approve(accounts[1], xferAmt, { from: accounts[0] })
+    }).then(function (balance) {
+      return meta.pause({ from: accounts[0] })
+    }).then(function (balance) {
+      return meta.transferFrom(accounts[0], accounts[1], xferAmt, { from: accounts[1] })
+    })
+    .then(assert.fail)
+    .catch(function (error) {
+      assert(
+        error.message.indexOf('invalid opcode') >= 0,
+        'accounts trying to transferFrom() when paused should throw an invalid opcode exception.'
+      )
+      // reset
+      meta.unpause({ from: accounts[0] })
+    })
+  })
 })
