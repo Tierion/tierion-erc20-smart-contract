@@ -49,44 +49,6 @@ contract('TierionNetworkToken', function (accounts) {
     })
   })
 
-  it('should set contact information on contract creation when Contactable', function () {
-    return TierionNetworkToken.deployed().then(function (instance) {
-      return instance.contactInformation.call()
-    }).then(function (contact) {
-      assert.equal(contact, 'Tierion <tokensale@tierion.com>', 'Contact info not properly assigned')
-    })
-  })
-
-  it('should allow update of contact information by owner when Contactable', function () {
-    var meta
-
-    return TierionNetworkToken.deployed().then(function (instance) {
-      meta = instance
-      return meta.setContactInformation('New Owner <newbie@example.com>', { from: accounts[0] })
-    }).then(function (result) {
-      // console.log(result)
-      return meta.contactInformation.call()
-    }).then(function (contact) {
-      assert.equal(contact, 'New Owner <newbie@example.com>', 'Contact info not properly modified')
-    })
-  })
-
-  it('should not allow update of contact information by non-owner when Contactable', function () {
-    var meta
-
-    return TierionNetworkToken.deployed().then(function (instance) {
-      meta = instance
-      return meta.setContactInformation('Malicious Mel <mel@malware.com>', { from: accounts[1] })
-    })
-    .then(assert.fail)
-    .catch(function (error) {
-      assert(
-        error.message.indexOf('invalid opcode') >= 0,
-        'non-owner accounts trying to setContactInformation() should throw an invalid opcode exception.'
-      )
-    })
-  })
-
   it('should set owner information on contract creation when Ownable', function () {
     return TierionNetworkToken.deployed().then(function (instance) {
       return instance.owner.call()

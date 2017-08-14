@@ -2,7 +2,6 @@ pragma solidity ^0.4.11;
 
 
 import "./zeppelin-solidity/contracts/token/StandardToken.sol";
-import "./zeppelin-solidity/contracts/ownership/Contactable.sol";
 import "./zeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
 
@@ -25,7 +24,7 @@ import "./zeppelin-solidity/contracts/lifecycle/Pausable.sol";
  * this contract.
  *
  */
-contract TierionNetworkToken is StandardToken, Contactable, Pausable {
+contract TierionNetworkToken is StandardToken, Pausable {
 
   string public name = 'Tierion Network Token';                 // Set the token name for display
   string public symbol = 'TNT';                                 // Set the token symbol for display
@@ -39,7 +38,6 @@ contract TierionNetworkToken is StandardToken, Contactable, Pausable {
   function TierionNetworkToken() {
     totalSupply = INITIAL_SUPPLY;                               // Set the total supply
     balances[msg.sender] = INITIAL_SUPPLY;                      // Creator address is assigned all
-    setContactInformation("Tierion <tokensale@tierion.com>");   // Set owner contact info (modifiable)
   }
 
   /**
