@@ -12,10 +12,9 @@
     "test": "./scripts/test.sh",
     "migrate": "./node_modules/.bin/truffle migrate"
   },
-  "dependencies": {
-    "zeppelin-solidity": "1.2.0"
-  },
   "devDependencies": {
-    "truffle": "3.4.7"
+    "truffle": "3.4.7",
+    "ethereumjs-testrpc": "^4.0.1",
+    "zeppelin-solidity": "1.2.0"
   }
 }
