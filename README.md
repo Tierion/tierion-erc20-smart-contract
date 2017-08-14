@@ -15,7 +15,7 @@ yarn
 
 ### Test
 
-Run `testrpc` in its own terminal window.
+Running `yarn test` will also take care of starting/stopping `testrpc`.
 
 ```
 yarn test
