@@ -13,8 +13,10 @@
     "migrate": "./node_modules/.bin/truffle migrate"
   },
   "devDependencies": {
-    "truffle": "3.4.7",
+    "bluebird": "^3.5.0",
     "ethereumjs-testrpc": "^4.0.1",
+    "lodash": "^4.17.4",
+    "truffle": "3.4.7",
     "zeppelin-solidity": "1.2.0"
   }
 }

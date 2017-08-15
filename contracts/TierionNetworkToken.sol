@@ -46,6 +46,7 @@ contract TierionNetworkToken is StandardToken, Pausable {
    * @param _value The amount to be transferred.
    */
   function transfer(address _to, uint256 _value) whenNotPaused returns (bool) {
+    require(_to != address(0));
     return super.transfer(_to, _value);
   }
 
@@ -56,6 +57,7 @@ contract TierionNetworkToken is StandardToken, Pausable {
    * @param _value uint256 the amout of tokens to be transfered
    */
   function transferFrom(address _from, address _to, uint256 _value) whenNotPaused returns (bool) {
+    require(_to != address(0));
     return super.transferFrom(_from, _to, _value);
   }
 
