@@ -26,10 +26,10 @@ import "./zeppelin-solidity/contracts/lifecycle/Pausable.sol";
  */
 contract TierionNetworkToken is StandardToken, Pausable {
 
-  string public constant name = 'Tierion Network Token';                 // Set the token name for display
-  string public constant symbol = 'TNT';                                 // Set the token symbol for display
-  uint256 public constant decimals = 8;                                  // Set the number of decimals for display
-  uint256 public constant INITIAL_SUPPLY = 1000000000 * 10**decimals;    // 1 Billion TNT specified in Grains
+  string public constant name = 'Tierion Network Token';                       // Set the token name for display
+  string public constant symbol = 'TNT';                                       // Set the token symbol for display
+  uint8 public constant decimals = 8;                                          // Set the number of decimals for display
+  uint256 public constant INITIAL_SUPPLY = 1000000000 * 10**uint256(decimals); // 1 Billion TNT specified in Grains
 
   /**
    * @dev TierionNetworkToken Constructor
