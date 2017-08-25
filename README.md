@@ -16,6 +16,9 @@ Contract Address:
 
 [0x08f5a9235b08173b7569f83645d2c7fb55e8ccd8](https://etherscan.io/address/0x08f5a9235b08173b7569f83645d2c7fb55e8ccd8)
 
+Etherscan TNT Token Viewer:
+[https://etherscan.io/token/0x08f5a9235b08173b7569f83645d2c7fb55e8ccd8](https://etherscan.io/token/0x08f5a9235b08173b7569f83645d2c7fb55e8ccd8)
+
 ## Development
 
 The production build was compiled with the following Truffle version:
