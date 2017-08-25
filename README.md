@@ -2,6 +2,20 @@
 
 An `ERC20` standard token. Built on the [OpenZeppelin](https://openzeppelin.org/) framework.
 
+## Deployment
+
+Contract Owner Address:
+
+[0x5E9c071070343395106991556D3Eb0651eDFf8cF](https://etherscan.io/address/0x5E9c071070343395106991556D3Eb0651eDFf8cF)
+
+Deploy TX:
+
+[0x133eea1aa3abfcc52e07c80d8b1406c058ba3640389686c86e1f3dd572ba298b](https://etherscan.io/tx/0x133eea1aa3abfcc52e07c80d8b1406c058ba3640389686c86e1f3dd572ba298b)
+
+Contract Address:
+
+[0x08f5a9235b08173b7569f83645d2c7fb55e8ccd8](https://etherscan.io/address/0x08f5a9235b08173b7569f83645d2c7fb55e8ccd8)
+
 ## Development
 
 The production build was compiled with the following Truffle version:
